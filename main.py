@@ -33,7 +33,7 @@ wolf_alive_in_time = [Nw]
 
 # TODO check this! change into two for loops, one for each agent
 for t in range(0, T):
-    if t % 250 == 0:
+    if t % 100 == 0:
         plot_ecosystem(t)
     # animals = np.random.permutation(rabbits_alive + wolves_alive)
     i = j =0
@@ -41,25 +41,26 @@ for t in range(0, T):
     n = len(animals)
     # the amount of animals is changing at each iteration
     
+        
+    while i < Nw:
+# for animal in animals:
+        wolf = wolves_alive[i]
+        if wolf.alive:
+            wolf.move()
+        elif not wolf.alive:
+            # print('Killing animal: ', animal.race)
+            wolves_alive.remove(wolf)
+        Nw = len(wolves_alive)
+        i += 1
+        
     while j < Nr:
-        rabbit = rabbits_alive[i]
+        rabbit = rabbits_alive[j]
         if rabbit.alive:
             rabbit.move()
         elif not rabbit.alive:
             # print('Killing animal: ', animal.race)
                 rabbits_alive.remove(rabbit)
         Nr = len(rabbits_alive)
-        
-        while i < Nw:
-    # for animal in animals:
-            wolf = wolves_alive[i]
-            if wolf.alive:
-                wolf.move()
-            elif not wolf.alive:
-                # print('Killing animal: ', animal.race)
-                wolves_alive.remove(wolf)
-            Nw = len(wolves_alive)
-            i += 1
         j += 1
         animals = rabbits_alive + wolves_alive
         n = len(animals)
