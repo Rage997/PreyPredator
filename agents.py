@@ -6,8 +6,9 @@ rabbits_alive = []
 wolves_alive = []
 
 class Animal():
-    def __init__(self, position):
-        self.age = np.random.randint(TR_d)
+    def __init__(self, position, age=0):
+        # self.age = np.random.randint(TR_d)
+        self.age = age
         self.position = np.array(position)
         self.alive = True
 
@@ -35,23 +36,23 @@ class Animal():
         self.alive = False
 
 class Rabbit(Animal):
-    def __init__(self, position):
+    def __init__(self, position, age=0):
         self.race = 'Rabbit'
-        super().__init__(position)
+        super().__init__(position, age)
 
     def move(self):
-
         if not self.alive:
             return
+
         direction = self.get_direction()
         self.position = self.position + direction
-        # Periodic boundary
         self.check_in_boundary()
 
-        self.replicate()
         self.age += 1
         if self.age > TR_d:
             self.die()
+        else:
+            self.replicate()
        
     def replicate(self):
         if np.random.binomial(1, PR_r):
@@ -60,22 +61,22 @@ class Rabbit(Animal):
 
 
 class Wolf(Animal):
-    def __init__(self, position):
+    def __init__(self, position, age=0):
         self.hunger = 0 # A wolf is hunger for its prey
         self.race = "Wolf"
-        super().__init__(position)
+        super().__init__(position, age)
 
     def move(self):
-
+        if self.hunger >= TW_d:
+            self.die()
         if not self.alive:
             return
         direction = self.get_direction()
         self.position = self.position + direction
         self.check_in_boundary()
-        self.hunger += 1
+
         self.eat()
-        if self.hunger >= TW_d:
-            self.die()
+        # self.hunger += 1
 
     def find_prey(self):
         prey = []
@@ -89,7 +90,8 @@ class Wolf(Animal):
     def eat(self):
         prey = self.find_prey()
         if len(prey) == 0:
-            return
+            self.hunger += 1
+            # return
         else:
             for rabbit in prey:
                 if np.random.binomial(1, PW_e):

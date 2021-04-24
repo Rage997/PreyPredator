@@ -21,11 +21,11 @@ def plot_ecosystem(t):
 # Generate the agents and distribuite them randomly over the domain
 for _ in range(Nr):
     position = np.random.uniform(0, L, size=(1, 2)).flatten()
-    rabbits_alive.append(Rabbit(position))
+    rabbits_alive.append(Rabbit(position, age=np.random.randint(TR_d)))
 
 for _ in range(Nw):
     position = np.random.uniform(0, L, size=(1, 2)).flatten()
-    wolves_alive.append(Wolf(position))
+    wolves_alive.append(Wolf(position, age=np.random.randint(TR_d)))
 
 # Used for plotting system state
 rab_alive_in_time = [Nr] 
@@ -40,7 +40,6 @@ for t in range(0, T):
     animals = rabbits_alive + wolves_alive
     n = len(animals)
     # the amount of animals is changing at each iteration
-    
         
     while i < Nw:
 # for animal in animals:
