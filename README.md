@@ -16,9 +16,4 @@ The figures show the evolution in time of the system for 2000 timesteps for diff
 
 </p>
 
-The evolution in time resembles Lotka–Volterra equation in the figure below.
-
-<p float="middle">
-  <img src="./images/volterra.png" width="250" /> 
-</p>
-
+The evolution in time resembles [Lotka–Volterra equation](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations)
